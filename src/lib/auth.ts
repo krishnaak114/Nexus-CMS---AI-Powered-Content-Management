@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials"
 import { prisma } from "@/lib/db"
 import bcrypt from "bcryptjs"
 
-// @ts-ignore - NextAuth v5 beta type issue
+// @ts-expect-error - NextAuth v5 beta type issue
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({

@@ -121,7 +121,7 @@ export async function suggestTags(title: string, content: string): Promise<strin
 
     const text = response.content[0].type === 'text' ? response.content[0].text : '[]'
     return JSON.parse(text)
-  } catch (error) {
+  } catch {
     return []
   }
 }
