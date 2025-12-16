@@ -2,11 +2,11 @@
 
 import { useState } from 'react'
 
-export default function AIAssistant({ contentId, title, body }: { contentId?: string, title: string, body: string }) {
+export default function AIAssistant({ contentId: _contentId, title, body }: { contentId?: string, title: string, body: string }) {
   const [loading, setLoading] = useState('')
   const [summary, setSummary] = useState('')
-  const [seoData, setSeoData] = useState<any>(null)
-  const [sentiment, setSentiment] = useState<any>(null)
+  const [seoData, setSeoData] = useState<Record<string, unknown> | null>(null)
+  const [sentiment, setSentiment] = useState<Record<string, unknown> | null>(null)
   const [tags, setTags] = useState<string[]>([])
 
   const handleSummarize = async () => {
@@ -134,12 +134,12 @@ export default function AIAssistant({ contentId, title, body }: { contentId?: st
       {seoData && (
         <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
           <h4 className="font-semibold text-green-900 mb-2">
-            SEO Score: {seoData.seoScore}/100
+            SEO Score: {(seoData as any).seoScore}/100
           </h4>
-          <p className="text-green-800 text-sm mb-2">{seoData.metaDescription}</p>
-          {seoData.keywords.length > 0 && (
+          <p className="text-green-800 text-sm mb-2">{(seoData as any).metaDescription}</p>
+          {Array.isArray((seoData as any).keywords) && (seoData as any).keywords.length > 0 && (
             <div className="flex flex-wrap gap-2">
-              {seoData.keywords.map((kw: string) => (
+              {(seoData as any).keywords.map((kw: string) => (
                 <span key={kw} className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">
                   {kw}
                 </span>
@@ -152,11 +152,11 @@ export default function AIAssistant({ contentId, title, body }: { contentId?: st
       {sentiment && (
         <div className="p-4 bg-purple-50 border border-purple-200 rounded-lg">
           <h4 className="font-semibold text-purple-900 mb-2">
-            Sentiment: {sentiment.sentiment} ({sentiment.confidence}% confident)
+            Sentiment: {(sentiment as any).sentiment} ({(sentiment as any).confidence}% confident)
           </h4>
-          {sentiment.emotions.length > 0 && (
+          {Array.isArray((sentiment as any).emotions) && (sentiment as any).emotions.length > 0 && (
             <div className="flex flex-wrap gap-2">
-              {sentiment.emotions.map((emotion: string) => (
+              {(sentiment as any).emotions.map((emotion: string) => (
                 <span key={emotion} className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded">
                   {emotion}
                 </span>

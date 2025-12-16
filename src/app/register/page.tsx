@@ -1,4 +1,5 @@
 import { registerUser } from "../actions/auth"
+import Link from "next/link"
 
 export default function RegisterPage() {
   return (
@@ -65,16 +66,16 @@ export default function RegisterPage() {
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
             Already have an account?{' '}
-            <a href="/login" className="text-purple-600 hover:text-indigo-600 font-bold hover:underline transition">
+            <Link href="/login" className="text-purple-600 hover:text-indigo-600 font-bold hover:underline transition">
               Login instead →
-            </a>
+            </Link>
           </p>
         </div>
         
         <div className="mt-6 pt-6 border-t border-gray-200 text-center">
-          <a href="/" className="text-sm text-gray-500 hover:text-gray-700 transition">
+          <Link href="/" className="text-sm text-gray-500 hover:text-gray-700 transition">
             ← Back to Homepage
-          </a>
+          </Link>
         </div>
       </div>
     </div>

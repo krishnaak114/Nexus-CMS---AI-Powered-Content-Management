@@ -56,7 +56,7 @@ export async function optimizeSEO(title: string, content: string): Promise<{
       keywords: result.keywords || [],
       seoScore: result.seoScore || 50
     }
-  } catch (error) {
+  } catch {
     return {
       metaDescription: content.slice(0, 150),
       keywords: [],
@@ -95,7 +95,7 @@ export async function analyzeSentiment(content: string): Promise<{
       confidence: result.confidence || 50,
       emotions: result.emotions || []
     }
-  } catch (error) {
+  } catch {
     return {
       sentiment: 'neutral',
       confidence: 50,

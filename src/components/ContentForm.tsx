@@ -8,7 +8,7 @@ export default function ContentForm({
   defaultValues, 
   submitLabel 
 }: { 
-  action: any
+  action: (formData: FormData) => Promise<any>
   defaultValues?: { title: string; excerpt: string; body: string; status: string }
   submitLabel: string
 }) {

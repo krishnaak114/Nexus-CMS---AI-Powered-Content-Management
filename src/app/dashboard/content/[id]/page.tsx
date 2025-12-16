@@ -2,7 +2,7 @@ import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/db"
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { deleteContent, updateContent, publishContent } from "@/app/actions/content"
+import { deleteContent, publishContent } from "@/app/actions/content"
 
 export default async function ContentDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await auth()

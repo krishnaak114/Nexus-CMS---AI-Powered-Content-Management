@@ -2,7 +2,7 @@
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.5-black?style=flat&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?style=flat&logo=typescript)](https://www.typescriptlang.org/)
-[![SQLite](https://img.shields.io/badge/SQLite-3-003B57?style=flat&logo=sqlite)](https://www.sqlite.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-316192?style=flat&logo=postgresql)](https://www.postgresql.org/)
 [![Prisma](https://img.shields.io/badge/Prisma-6.19-2D3748?style=flat&logo=prisma)](https://www.prisma.io/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
 [![Claude AI](https://img.shields.io/badge/Claude-Haiku-8B5CF6?style=flat)](https://www.anthropic.com/)
@@ -48,7 +48,7 @@ This project addresses all **mandatory** and **optional** requirements:
 ✅ **Full CRUD Operations** with validation and error handling  
 ✅ **Authentication & Authorization** using NextAuth.js v5  
 ✅ **Responsive UI** with Tailwind CSS and modern design  
-✅ **SQLite Database** with Prisma ORM (easily migrated to PostgreSQL)  
+✅ **PostgreSQL Database** with Prisma ORM (production-ready)  
 ✅ **AI Integration** with Claude Haiku (4 AI features)  
 ✅ **Code Optimization** with SSR, code splitting, and performance best practices  
 ✅ **Security** with bcrypt password hashing and secure session management  
@@ -158,7 +158,7 @@ The AI implementation is designed for **minimal token consumption**:
 ### Backend
 - **Runtime**: Node.js 20+
 - **API**: Next.js Server Actions + API Routes
-- **Database**: SQLite 3 (Prisma ORM 6.19.1)
+- **Database**: PostgreSQL 16 (Prisma ORM 6.19.1)
 - **Authentication**: NextAuth.js v5 beta (Credentials Provider)
 - **Password Security**: bcryptjs for hashing
 - **AI Integration**: Anthropic Claude Haiku (@anthropic-ai/sdk)
@@ -172,7 +172,7 @@ The AI implementation is designed for **minimal token consumption**:
 ### Deployment
 - **Platform**: Vercel (recommended)
 - **CI/CD**: Automatic deployment from GitHub
-- **Database**: Can migrate to PostgreSQL/MySQL for production
+- **Database**: PostgreSQL via Vercel Postgres
 - **Linting**: ESLint + Prettier
 - **Pre-commit**: Husky + lint-staged
 - **Monitoring**: Vercel Analytics
@@ -305,6 +305,9 @@ model Content {
    
    Create a `.env.local` file in the root directory:
    ```env
+   # PostgreSQL Database
+   DATABASE_URL="postgresql://username:password@localhost:5432/nexus_cms?schema=public"
+
    # NextAuth Configuration
    NEXTAUTH_URL="http://localhost:3000"
    NEXTAUTH_SECRET="your-secret-key-at-least-32-characters-long"
@@ -313,18 +316,36 @@ model Content {
    CLAUDE_API_KEY="sk-ant-api03-..."
    ```
 
-4. **Initialize the database**
+4. **Set up PostgreSQL**
+   
+   **Option A: Local PostgreSQL**
+   ```bash
+   # Install PostgreSQL from https://www.postgresql.org/download/
+   # Or use Docker:
+   docker run -e POSTGRES_PASSWORD=password -p 5432:5432 postgres
+   
+   # Create database
+   psql -U postgres
+   CREATE DATABASE nexus_cms;
+   ```
+   
+   **Option B: Use Vercel Postgres** (Recommended for production)
+   - Deploy to Vercel first
+   - Add Vercel Postgres in Storage tab
+   - DATABASE_URL is automatically set
+
+5. **Initialize the database**
    ```bash
    npx prisma generate
    npx prisma db push
    ```
 
-5. **Run the development server**
+6. **Run the development server**
    ```bash
    npm run dev
    ```
 
-6. **Open your browser**
+7. **Open your browser**
    
    Navigate to [http://localhost:3000](http://localhost:3000)
 

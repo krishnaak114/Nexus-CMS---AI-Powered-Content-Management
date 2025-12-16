@@ -3,6 +3,7 @@ import Credentials from "next-auth/providers/credentials"
 import { prisma } from "@/lib/db"
 import bcrypt from "bcryptjs"
 
+// @ts-ignore - NextAuth v5 beta type issue
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
@@ -45,15 +46,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: '/login',
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: any) {
       if (user) {
         token.role = user.role
       }
       return token
     },
-    async session({ session, token }) {
+    async session({ session, token }: any) {
       if (session.user) {
-        session.user.id = token.sub!
+        session.user.id = token.sub || (token as any).id
         session.user.role = token.role as string
       }
       return session
