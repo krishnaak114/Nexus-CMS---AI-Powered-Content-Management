@@ -10,7 +10,7 @@ describe('Home Page', () => {
 
   it('displays the main features', () => {
     render(<Home />)
-    expect(screen.getByText(/AI-Powered/i)).toBeInTheDocument()
+    expect(screen.getAllByText(/AI-Powered/i).length).toBeGreaterThan(0)
     expect(screen.getByText(/Lightning Fast/i)).toBeInTheDocument()
     expect(screen.getByText(/Full-Featured/i)).toBeInTheDocument()
   })

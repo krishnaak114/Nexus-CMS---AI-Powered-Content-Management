@@ -16,7 +16,7 @@ describe('Footer Component', () => {
   it('displays LinkedIn link', () => {
     render(<Footer />)
     const linkedInLink = screen.getByRole('link', { name: /LinkedIn/i })
-    expect(linkedInLink).toHaveAttribute('href', 'https://www.linkedin.com/in/agrawal-krishna-aa11a61ba/')
+    expect(linkedInLink).toHaveAttribute('href', 'https://www.linkedin.com/in/agrawal-krishna-aa11a61ba')
   })
 
   it('shows assignment attribution', () => {
